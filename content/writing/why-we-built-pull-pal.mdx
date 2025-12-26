@@ -1,0 +1,65 @@
+---
+title: "Why we built pull-pal"
+description: "A tiny, zero-config CLI that stops you from pushing stale code, and the small recurring frustration that led to it."
+date: 2026-06-26
+tags: ["open source", "developer tools", "git"]
+draft: false
+---
+
+Every team I've been on has lost an afternoon to the same boring mistake.
+Someone pushes a branch that's behind the remote, or ships a change the tests
+would have caught, and the next hour disappears into untangling it. It's never
+dramatic. It's small, it's avoidable, and it keeps happening.
+
+At some point a friend and I got tired of it and built
+[pull-pal](https://pull-pal.vercel.app): a tiny CLI that sits in front of
+`git push` and refuses to let stale or broken code leave your machine.
+
+## What it actually does
+
+pull-pal wraps the push. Before anything hits the remote, it fetches and checks
+whether your branch is behind the remote default branch, rebases if it is, then
+finds your project's test suite and runs it. If the tests fail, the push is
+blocked.
+
+Run `pull-pal setup` once in a repo and it installs a pre-push hook, so every
+push goes through the same checks whether it comes from your terminal, your
+IDE, or a Git GUI.
+
+```bash
+npm install -g pull-pal   # or pip install pull-pal
+
+pull-pal setup
+
+git push
+# behind origin/main? it rebases first.
+# tests failing? the push never leaves your machine.
+```
+
+That's the whole product. No dashboard, no accounts, no telemetry. Everything
+runs locally.
+
+## Zero-config on purpose
+
+The part I care most about is what it doesn't ask of you. There's no config
+file. pull-pal looks at your project and figures out how to run your tests on
+its own: `npm test` or `bun test` for Node, `cargo test` for Rust,
+`go test ./...` for Go, `pytest` for Python, and so on through Maven, Gradle,
+Make, and RSpec.
+
+And when it can't find a test runner? It warns you and lets the push through.
+That was a deliberate choice. A safety tool that blocks pushes on a guess would
+get uninstalled within a week. The same thinking is behind the escape hatches:
+`--no-rebase` and `--no-tests` exist because sometimes you know better than the
+tool, and it should get out of your way when you do.
+
+## The lesson I keep relearning
+
+There's a pattern here that shows up in most of my favorite tools: they earn
+their place by being quiet. pull-pal says nothing on the hundreds of pushes
+where everything is fine. It only speaks up at the exact moment you were about
+to make the mistake, and then it's loud enough to stop you.
+
+A tool that's supposed to remove friction shouldn't add a config file you have
+to babysit, and it shouldn't need a tab open in your browser. It should just
+sit there, mostly invisible, catching the afternoon you were about to lose.

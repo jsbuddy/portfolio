@@ -1,0 +1,60 @@
+---
+title: "Making sense of messy data"
+description: "Most data problems are really trust problems. What building data products for businesses at StatiSense has taught me about the difference."
+date: 2026-07-19
+tags: ["data", "statisense"]
+draft: false
+---
+
+Most of the data problems I've worked on turned out not to be data problems.
+The numbers existed. The pipelines ran. The dashboard loaded. And still, the
+person who actually needed to make a decision would look at the screen,
+hesitate, and go ask someone to double-check.
+
+That hesitation is the real problem. At StatiSense we build data products
+for other businesses, and what we sell isn't really charts. It's the
+ability to look at a number and act on it without calling a meeting first.
+
+## What messy actually means
+
+When people hear "messy data" they picture typos and null values. That stuff
+exists, but it's the easy part. You can script your way out of it.
+
+The mess that matters lives in the seams. Two systems that describe the same
+customer three different ways. A report that disagrees with another report by
+just enough that nobody knows which one to trust. A field that was repurposed
+years ago and now means something nobody wrote down. None of these look like
+errors on their own. They only show up when you put things side by side,
+which is exactly what a decision forces you to do.
+
+As CTO I lead the teams behind our B2C, B2B, and B2G products, from the data
+pipelines at the bottom to the dashboards customers actually see. The
+products are different, but the test is the same for all of them: can someone
+look at this and act on it without a data analyst sitting next to them?
+
+## Honest beats impressive
+
+Here's the uncomfortable part. When customers run their business on your
+numbers, "looks impressive" is a liability. A polished dashboard that hides
+its own uncertainty is worse than no dashboard at all, because someone will
+make a real decision on it, with real money or real people on the other end.
+
+So the bar I hold the team to is honesty over polish. Show how fresh the data
+is. Show where the gaps are. Make the confident numbers feel confident and
+the shaky ones feel shaky, so the person reading them knows which is which
+without being told.
+
+That sounds obvious written down, but it runs against every instinct you have
+when you're building a product. Nobody wants to ship a screen that says
+"we're not sure about this bit." You do it anyway, because the first time a
+customer catches your dashboard being confidently wrong, you don't get their
+trust back.
+
+## Trust is the product
+
+The pattern I keep coming back to is that trust gets built in boring places.
+Not in the chart library or the model, but in the moment a number matches
+what the customer already knew to be true, or a gap is labeled instead of
+papered over. Enough of those moments and people stop double-checking you.
+That's the whole job. Once someone trusts what they're looking at, the
+insight part mostly takes care of itself.

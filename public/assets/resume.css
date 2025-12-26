@@ -1,0 +1,117 @@
+/* Styling for the PDF generated from resume.md (via `npm run resume`). */
+
+:root {
+  --ink: #1f2328;
+  --muted: #59636e;
+  --accent: #0b62c4;
+  --line: #d8dee4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica,
+    Arial, sans-serif;
+  color: var(--ink);
+  font-size: 10.5pt;
+  line-height: 1.5;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Header --- */
+h1 {
+  font-size: 24pt;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+  color: #11181c;
+}
+
+/* Title / role line, immediately after the name */
+h1 + p {
+  margin: 0 0 6px;
+  font-size: 11.5pt;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.01em;
+}
+
+/* Contact line, after the title */
+h1 + p + p {
+  margin: 0;
+  font-size: 9.5pt;
+  color: var(--muted);
+}
+
+/* --- Section headings --- */
+h2 {
+  font-size: 10.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 20px 0 10px;
+  padding-bottom: 4px;
+  border-bottom: 1.5px solid var(--line);
+}
+
+/* --- Entry titles (jobs, projects) --- */
+h3 {
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 12px 0 0;
+}
+
+/* Meta line right after an entry title (location · dates, or tech stack) */
+h3 + p {
+  margin: 1px 0 5px;
+  font-size: 9pt;
+  color: var(--muted);
+}
+
+p {
+  margin: 0 0 6px;
+}
+
+ul {
+  margin: 4px 0 6px;
+  padding-left: 18px;
+}
+
+li {
+  margin: 0 0 3px;
+}
+
+strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+em {
+  color: var(--muted);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+hr {
+  display: none;
+}
+
+/* Keep entries from splitting awkwardly across pages */
+h2,
+h3 {
+  break-after: avoid;
+}
+h3 + p {
+  break-before: avoid;
+}
+ul {
+  break-inside: avoid;
+}

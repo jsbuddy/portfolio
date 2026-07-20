@@ -82,6 +82,7 @@ export async function sendContactMessage(input: {
     text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
   });
   if (error) {
+    console.error("Contact form send failed:", error);
     return {
       success: false,
       error: "Couldn't send your message. Please try again later.",

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import posthog from "posthog-js";
 import { sendContactMessage } from "@/app/actions/contact";
 import { Button } from "./ui/button";
 import { Field, FieldError, FieldLabel } from "./ui/field";
@@ -37,12 +38,21 @@ const ContactDialog = () => {
     try {
       const result = await sendContactMessage(values);
       if (!result.success) {
+        posthog.capture("contact_form_submitted", {
+          success: false,
+          error: result.error,
+        });
         setError("root", { message: result.error });
         return;
       }
+      posthog.capture("contact_form_submitted", { success: true });
       reset();
       setSubmitted(true);
     } catch {
+      posthog.capture("contact_form_submitted", {
+        success: false,
+        error: "network",
+      });
       setError("root", { message: "Network error. Please try again." });
     }
   });
@@ -53,7 +63,10 @@ const ContactDialog = () => {
         variant="default"
         size="lg"
         className="text-base px-5 cursor-pointer"
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsOpen(true);
+          posthog.capture("contact_dialog_opened");
+        }}
       >
         Get in touch
       </Button>

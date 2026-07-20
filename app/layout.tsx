@@ -5,8 +5,6 @@ import { ThemeProvider } from "next-themes";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { hasPosts } from "@/lib/writing";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const mozillaText = Mozilla_Text({
   subsets: ["latin"],
@@ -90,8 +88,6 @@ export default function RootLayout({
           </div>
           {modal}
         </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

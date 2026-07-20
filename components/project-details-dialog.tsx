@@ -1,6 +1,7 @@
 "use client";
 
 import { Project } from "@/lib/projects";
+import posthog from "posthog-js";
 import { AnimatePresence, motion } from "motion/react";
 import { HiCode, HiOutlineExternalLink, HiX } from "react-icons/hi";
 import { Button } from "./ui/button";
@@ -120,6 +121,12 @@ const ProjectDetailsDialog = ({
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() =>
+                      posthog.capture("project_link_clicked", {
+                        project: project.id,
+                        kind: "live",
+                      })
+                    }
                   >
                     <Button className="cursor-pointer">
                       <HiOutlineExternalLink className="size-4" />
@@ -131,6 +138,12 @@ const ProjectDetailsDialog = ({
                       href={project.source}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() =>
+                        posthog.capture("project_link_clicked", {
+                          project: project.id,
+                          kind: "source",
+                        })
+                      }
                     >
                       <Button variant="outline" className="cursor-pointer">
                         <HiCode className="size-4" />
